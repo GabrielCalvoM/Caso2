@@ -3,9 +3,11 @@ package gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class VentanaControl extends JFrame {
+public class VentanaAlerta extends JFrame {
 	
-	public VentanaControl() {
+	private ListaAlerta alertas = new ListaAlerta();
+	
+	public VentanaAlerta() {
 		setTitle("Sistema de Plantas");
 		setSize(390, 250);
 		setResizable(false);
@@ -16,13 +18,20 @@ public class VentanaControl extends JFrame {
 		Container panel = getContentPane();
         panel.setLayout(null);
 		
-		JLabel titulo = new JLabel("ZONA DE CONTROL");
+		JLabel titulo = new JLabel("ZONA DE ALERTA");
 		titulo.setFont(new Font("Arial", Font.BOLD, 20));
 		titulo.setForeground(Color.BLUE);
 		titulo.setBounds(90, 20, 600, 30);
 
         panel.add(titulo);
         
+        alertas.setBounds(20, 70, 335, 120);
+        
+        panel.add(alertas);
+        
+        alertas.agregarAlerta("riego", "A2");
+        
+        /*
         BotonControl bAbono = new BotonControl(AccionBoton.abono, Color.LIGHT_GRAY, "Abono");
         bAbono.setBounds(20, 80, 90, 30);
         
@@ -42,6 +51,8 @@ public class VentanaControl extends JFrame {
         bRegistrar.setBounds(140, 140, 90, 30);
         
         panel.add(bRegistrar);
+        */
+        
 	}
 
 }

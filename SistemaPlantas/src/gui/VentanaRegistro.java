@@ -7,11 +7,11 @@ public class VentanaRegistro extends JFrame {
 	
 	public VentanaRegistro() {
 		setTitle("Sistema de Plantas");
-		setSize(390, 300);
+		setSize(390, 340);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		
-		setLocation(950, 100);
+		setLocation(950, 60);
 		
 		Container panel = getContentPane();
         panel.setLayout(null);
@@ -22,33 +22,45 @@ public class VentanaRegistro extends JFrame {
 		titulo.setBounds(93, 20, 600, 30);
 
         panel.add(titulo);
+        
+        JLabel Ubicacion = new JLabel("Lugar del Cultivo:");
+		Ubicacion.setFont(new Font("Arial", Font.BOLD, 20));
+		Ubicacion.setForeground(Color.BLUE);
+		Ubicacion.setBounds(20, 60, 600, 30);
+
+        panel.add(Ubicacion);
+        
+        JTextField lugar = new JTextField();
+        lugar.setBounds(20, 90, 200, 20);
+        
+        panel.add(lugar);
 
 		JLabel tipoPlanta = new JLabel("Tipo de Planta:");
 		tipoPlanta.setFont(new Font("Arial", Font.BOLD, 20));
 		tipoPlanta.setForeground(Color.BLUE);
-		tipoPlanta.setBounds(20, 60, 600, 30);
+		tipoPlanta.setBounds(20, 120, 600, 30);
 
         panel.add(tipoPlanta);
         
         JTextField tipo = new JTextField();
-        tipo.setBounds(20, 90, 200, 20);
+        tipo.setBounds(20, 150, 200, 20);
         
         panel.add(tipo);
 
 		JLabel cantidadLotes = new JLabel("Cantidad de lotes");
 		cantidadLotes.setFont(new Font("Arial", Font.BOLD, 20));
 		cantidadLotes.setForeground(Color.BLUE);
-		cantidadLotes.setBounds(20, 140, 600, 30);
+		cantidadLotes.setBounds(20, 180, 600, 30);
 
         panel.add(cantidadLotes);
 
         JTextField cantidad = new JTextField();
-        cantidad.setBounds(20, 170, 200, 20);
+        cantidad.setBounds(20, 210, 200, 20);
         
         panel.add(cantidad);
         
         BotonControl bIngresar = new BotonControl(AccionBoton.ingresar, Color.LIGHT_GRAY, "Ingresar");
-        bIngresar.setBounds(270, 210, 90, 30);
+        bIngresar.setBounds(270, 250, 90, 30);
         
         panel.add(bIngresar);
 	}
