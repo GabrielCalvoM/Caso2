@@ -1,7 +1,8 @@
 package runner;
 
-import gui.*;
 import gui.controlWindow.VentanaControl;
+import gui.registroWindow.VentanaRegistro;
+
 import javax.swing.SwingUtilities;
 
 public class Principal {

@@ -29,7 +29,7 @@ public class VentanaControl extends JFrame {
         Font fuenteInfo = new Font("Arial", Font.BOLD, 20);
         
         JLabel info = new JLabel(" UBICACIÓN        TIPO             LOTES         "
-        		+ "ESTADO       ALERTA");
+        						 + "ESTADO       ALERTA");
         info.setFont(fuenteInfo);
         info.setForeground(Color.RED);
         info.setBounds(20, 90, 700, 30);
