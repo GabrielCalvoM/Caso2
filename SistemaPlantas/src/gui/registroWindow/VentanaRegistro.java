@@ -11,7 +11,7 @@ public class VentanaRegistro extends JFrame {
 	private JTextField tipo;
 	private OpcionRegistro rtipo = initTipo();
 	private JTextField cantidad;
-	private OpcionRegistro rcant;
+	private OpcionRegistro rcant = initCant();
 	
 	public VentanaRegistro() {
 		setTitle("Sistema de Plantas");
@@ -31,11 +31,14 @@ public class VentanaRegistro extends JFrame {
 
         panel.add(titulo);
         
-        rlugar.setBounds(20, 108, 200, 150);
+        rlugar.setBounds(20, 108, 200, 130);
         panel.add(rlugar);
         
         rtipo.setBounds(20, 168, 200, 100);
         panel.add(rtipo);
+        
+        rcant.setBounds(20, 228, 200, 60);
+        panel.add(rcant);
         
         JLabel Ubicacion = new JLabel("Lugar del Cultivo:");
 		Ubicacion.setFont(new Font("Arial", Font.BOLD, 20));
@@ -44,7 +47,7 @@ public class VentanaRegistro extends JFrame {
 
         panel.add(Ubicacion);
 
-        BotonControl blugar = new BotonControl(AccionBoton.ubicaciónFlor, Color.GRAY, "v");
+        BotonControl blugar = new BotonControl(AccionBoton.ubicacionFlor, Color.GRAY, "v");
         blugar.setBounds(200, 90, 20, 20);
         blugar.addActionListener(e -> setAccion(blugar.getAccion()));
         
@@ -103,9 +106,15 @@ public class VentanaRegistro extends JFrame {
 	public void setAccion(AccionBoton accion) {
 		if (accion == AccionBoton.tipoFlor) {
 			rtipo.setVisible(true);
+			rcant.setVisible(false);
+			rlugar.setVisible(false);
 		} else if (accion == AccionBoton.cantidadFlor) {
-			
-		} else if (accion == AccionBoton.ubicaciónFlor) {
+			rtipo.setVisible(false);
+			rcant.setVisible(true);
+			rlugar.setVisible(false);
+		} else if (accion == AccionBoton.ubicacionFlor) {
+			rtipo.setVisible(false);
+			rcant.setVisible(false);
 			rlugar.setVisible(true);
 		}
 	}
@@ -114,14 +123,14 @@ public class VentanaRegistro extends JFrame {
 		if (accion == AccionBoton.tipoFlor) {
 			tipo.setText(valor);
 		} else if (accion == AccionBoton.cantidadFlor) {
-			
-		} else if (accion == AccionBoton.ubicaciónFlor) {
+			cantidad.setText(valor);
+		} else if (accion == AccionBoton.ubicacionFlor) {
 			lugar.setText(valor);
 		}
 	}
 	
 	public OpcionRegistro initLugar() {
-		OpcionRegistro lugares = new OpcionRegistro(this, AccionBoton.tipoFlor);
+		OpcionRegistro lugares = new OpcionRegistro(this, AccionBoton.ubicacionFlor, 1);
 		lugares.AgregarBoton("A1");
 		lugares.AgregarBoton("A2");
 		lugares.AgregarBoton("A3");
@@ -134,14 +143,27 @@ public class VentanaRegistro extends JFrame {
 	}
 	
 	public OpcionRegistro initTipo() {
-		OpcionRegistro tipos = new OpcionRegistro(this, AccionBoton.ubicaciónFlor);
+		OpcionRegistro tipos = new OpcionRegistro(this, AccionBoton.tipoFlor, 1);
 		tipos.AgregarBoton("Orquídeas");
-		tipos.AgregarBoton("Lirios");
-		tipos.AgregarBoton("A1");
-		tipos.AgregarBoton("A1");
-		tipos.AgregarBoton("A1");
-		tipos.AgregarBoton("A1");
+		tipos.AgregarBoton("Claveles");
+		tipos.AgregarBoton("Anturios");
+		tipos.AgregarBoton("Rosales");
+		tipos.AgregarBoton("Heliconias");
+		tipos.AgregarBoton("Velo de novia");
 		return tipos;
+	}
+
+	public OpcionRegistro initCant() {
+		OpcionRegistro cant = new OpcionRegistro(this, AccionBoton.cantidadFlor, 2);
+		cant.AgregarBoton("1");
+		cant.AgregarBoton("2");
+		cant.AgregarBoton("3");
+		cant.AgregarBoton("4");
+		cant.AgregarBoton("5");
+		cant.AgregarBoton("6");
+		cant.AgregarBoton("7");
+		cant.AgregarBoton("8");
+		return cant;
 	}
 	
 }

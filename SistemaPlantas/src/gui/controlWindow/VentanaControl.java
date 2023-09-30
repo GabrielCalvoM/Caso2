@@ -37,7 +37,7 @@ public class VentanaControl extends JFrame {
         panel.add(info);
         
         cultivos.setBackground(Color.DARK_GRAY);
-        cultivos.setBounds(20, 120, 750, 400);
+        cultivos.setBounds(20, 120, 750, 360);
         
         panel.add(cultivos);
         
