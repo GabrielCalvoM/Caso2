@@ -4,8 +4,6 @@ import java.awt.*;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import gui.controlWindow.CultivoInfo;
-
 import java.util.ArrayList;
 
 

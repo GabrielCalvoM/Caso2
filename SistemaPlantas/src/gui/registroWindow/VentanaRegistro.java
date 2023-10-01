@@ -1,11 +1,15 @@
 package gui.registroWindow;
 
-import gui.*;
 import javax.swing.*;
 import java.awt.*;
 
+import gui.*;
+import runner.SistemaFuncion;
+import cultivos.*;
+
 public class VentanaRegistro extends JFrame {
 	
+	private SistemaFuncion sist;
 	private JTextField lugar;
 	private OpcionRegistro rlugar = initLugar();
 	private JTextField tipo;
@@ -13,7 +17,9 @@ public class VentanaRegistro extends JFrame {
 	private JTextField cantidad;
 	private OpcionRegistro rcant = initCant();
 	
-	public VentanaRegistro() {
+	public VentanaRegistro(SistemaFuncion padre) {
+		this.sist = padre;
+		
 		setTitle("Sistema de Plantas");
 		setSize(390, 340);
 		setResizable(false);
@@ -56,6 +62,7 @@ public class VentanaRegistro extends JFrame {
         this.lugar = new JTextField();
         lugar.setEditable(false);
         lugar.setBounds(20, 90, 180, 20);
+		lugar.setText("");
         
         panel.add(lugar);
         
@@ -75,6 +82,7 @@ public class VentanaRegistro extends JFrame {
         this.tipo = new JTextField();
         tipo.setEditable(false);
         tipo.setBounds(20, 150, 180, 20);
+        tipo.setText("");
         
         panel.add(tipo);
 
@@ -94,11 +102,13 @@ public class VentanaRegistro extends JFrame {
         this.cantidad = new JTextField();
         cantidad.setEditable(false);
         cantidad.setBounds(20, 210, 180, 20);
+		cantidad.setText("");
         
         panel.add(cantidad);
         
         BotonControl bIngresar = new BotonControl(AccionBoton.ingresar, Color.LIGHT_GRAY, "Ingresar");
         bIngresar.setBounds(270, 250, 90, 30);
+        bIngresar.addActionListener(e -> registrar());
         
         panel.add(bIngresar);
 	}
@@ -126,6 +136,18 @@ public class VentanaRegistro extends JFrame {
 			cantidad.setText(valor);
 		} else if (accion == AccionBoton.ubicacionFlor) {
 			lugar.setText(valor);
+		}
+	}
+	
+	public void registrar() {
+		if ((tipo.getText() != "") && (cantidad.getText() != "") && (lugar.getText() != "")) {
+			Campo cultivo = new Campo(new Cultivo(tipo.getText()),
+									  Integer.parseInt(cantidad.getText()), lugar.getText());
+			
+			this.tipo.setText("");
+			this.cantidad.setText("");
+			this.lugar.setText("");
+			this.sist.registrar(cultivo);
 		}
 	}
 	

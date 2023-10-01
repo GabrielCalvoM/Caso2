@@ -1,5 +1,5 @@
 package gui;
 
 public enum AccionBoton {
-	ingresar, alerta, tipoFlor, cantidadFlor, ubicacionFlor
+	ingresar, alerta, cosecha, tipoFlor, cantidadFlor, ubicacionFlor
 }
