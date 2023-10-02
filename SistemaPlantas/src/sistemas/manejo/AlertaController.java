@@ -15,7 +15,13 @@ public class AlertaController {
 		this.sistemas = psistema;
 	}
 	
-	public void comprobarAlteración() {
+	public void arreglar() {
+		if (alerta == Alerta.pendiente) {
+			alerta = Alerta.nada;
+		}
+	}
+	
+	public void comprobarAlteracion() {
 		if (sistemas.getAlteracion(Sist.riego) != Alteracion.funcionando) {
 			alerta = Alerta.riego;
 		} else if (sistemas.getAlteracion(Sist.abono) != Alteracion.funcionando) {

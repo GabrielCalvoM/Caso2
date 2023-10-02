@@ -1,7 +1,6 @@
 package sistemas.manejo;
 
-import sistemas.enums.Sist;
-import sistemas.enums.SysAccion;
+import sistemas.enums.*;
 
 public class SistemaExec implements ISystem {
 	
@@ -36,9 +35,19 @@ public class SistemaExec implements ISystem {
 
 	@Override
 	public void executeSys(SysAccion accion, Sist sistema, int cant) {
-		if (accion == SysAccion.encender) {
-			this.sistemas.consumir(sistema, cant);
+		if (accion == SysAccion.consumir) {
+			if (getEstado(sistema) == Estado.encendido) {
+				this.sistemas.consumir(sistema, cant);
+			}
 		} 
+	}
+	
+	public Estado getEstado(Sist sistema) {
+		return sistemas.getEstado(sistema);
+	}
+
+	public Alteracion getAlteracion(Sist sistema) {
+		return sistemas.getAlteracion(sistema);
 	}
 
 }

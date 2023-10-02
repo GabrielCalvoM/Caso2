@@ -32,6 +32,7 @@ public class SistemaManager {
 	
 	public void arreglar(Sist sistema) {
 		this.sistemas.setAlteracion(sistema, Alteracion.funcionando);
+		reponer(sistema);
 	}
 	
 	public Alteracion getAlteracion(Sist sistema) {

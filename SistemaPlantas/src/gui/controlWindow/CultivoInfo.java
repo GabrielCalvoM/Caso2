@@ -3,14 +3,19 @@ package gui.controlWindow;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import cultivos.Crecimiento;
+import cultivos.manejo.CultAccion;
+import cultivos.manejo.CultivoControl;
 import gui.AccionBoton;
 import gui.BotonControl;
+import runner.IntegraSistema;
+import sistemas.enums.Alerta;
 
 import java.awt.*;
 
 public class CultivoInfo extends JLabel {
 	
-	private VentanaControl ventana;
+	private CultivoControl cultivo;
 	private BotonControl cosechar;
 	private JTextField tipo;
 	private JTextField ubicacion;
@@ -20,20 +25,21 @@ public class CultivoInfo extends JLabel {
 	private BotonControl apagarAlerta;
 	private Font fuenteInfo = new Font("Arial", Font.PLAIN, 16);
 	
-	public CultivoInfo(String ptipo, String pubicacion, int pcantidad, VentanaControl padre) {
+	public CultivoInfo(CultivoControl pcultivo) {
 		super();
         this.setBackground(Color.GRAY);
 		this.setLayout(new GridLayout());
 		
-		this.ventana = padre;
-		this.tipo = new JTextField(ptipo);
-		this.ubicacion = new JTextField(pubicacion);
-		this.cantidad = new JTextField(String.valueOf(pcantidad));
+		this.cultivo = pcultivo;
+		this.tipo = new JTextField(cultivo.getString(CultAccion.gTipo));
+		this.ubicacion = new JTextField(cultivo.getString(CultAccion.gLugar));
+		this.cantidad = new JTextField(String.valueOf(cultivo.getInt(CultAccion.gCant)));
 		this.estado = new JTextField("Brotando");
-		this.alerta = new JTextField("Sin problemas");
+		this.alerta = new JTextField("Sin Problemas");
 		this.apagarAlerta = new BotonControl(AccionBoton.alerta, Color.LIGHT_GRAY, "Apagar Alerta");
 		this.cosechar = new BotonControl(AccionBoton.cosecha, Color.LIGHT_GRAY, "Cosechar");
-		cosechar.addActionListener(e -> cosechar());
+		apagarAlerta.addActionListener(e -> doAccion(apagarAlerta.getAccion()));
+		cosechar.addActionListener(e -> doAccion(cosechar.getAccion()));
 		
 		this.add(cosechar);
 		iniciarTexto(ubicacion);
@@ -54,8 +60,44 @@ public class CultivoInfo extends JLabel {
         this.add(texto);
 	}
 	
-	public void cosechar() {
-		ventana.cosechar(this);
+	public void doAccion(AccionBoton accion) {
+		IntegraSistema.setCultivo(this);
+		IntegraSistema.setAccion(accion);
+		new IntegraSistema().run();
 	}
-
+	
+	public void showEstado() {
+		Crecimiento estado = cultivo.getCrecimiento();
+		
+		if (estado == Crecimiento.creciendo) {
+			this.estado.setText("Creciendo");
+		} else if (estado == Crecimiento.floreciendo) {
+			this.estado.setText("Floreciendo");
+		}else if (estado == Crecimiento.lista) {
+			this.estado.setText("Lista");
+		}
+	}
+	
+	public void showAlerta() {
+		Alerta alerta = cultivo.getAlerta();
+		
+		if (alerta == Alerta.abono) {
+			this.alerta.setText("Abono");
+			this.alerta.setForeground(Color.RED);
+		} else if (alerta == Alerta.riego) {
+			this.alerta.setText("Riego");
+			this.alerta.setForeground(Color.RED);
+		} else if (alerta == Alerta.pendiente) {
+			this.alerta.setText("Arreglado");
+			this.alerta.setForeground(Color.GREEN);
+		}else if (alerta == Alerta.nada) {
+			this.alerta.setText("Sin Problemas");
+			this.alerta.setForeground(Color.BLACK);
+		}
+	}
+	
+	public CultivoControl getCultivo() {
+		return cultivo;
+	}
+	
 }

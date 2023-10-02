@@ -1,5 +1,5 @@
 package sistemas.enums;
 
 public enum Sist {
-	riego, abono
+	all, riego, abono
 }
