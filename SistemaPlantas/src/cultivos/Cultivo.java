@@ -4,15 +4,15 @@ public class Cultivo {
 	
 	private String tipo;
 	private Crecimiento estado;
-	private int tiempo;
+	private int duracion;
 	
 	public Cultivo(String ptipo) {
 		this.tipo = ptipo;
 		this.estado = Crecimiento.brotando;
-		this.tiempo = 36;
+		this.duracion = 36;
 	}
 	
-	public void crecer(Crecimiento pestado) {
+	public void setEstado(Crecimiento pestado) {
 		this.estado = pestado;
 	}
 	
@@ -20,8 +20,8 @@ public class Cultivo {
 		return estado;
 	}
 	
-	public int getTiempo() {
-		return tiempo;
+	public int getDuracion() {
+		return duracion;
 	}
 
 	public String getTipo() {

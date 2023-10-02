@@ -38,8 +38,8 @@ public class SistemaManager {
 		return this.sistemas.getAlteracion(sistema);
 	}
 	
-	public void consumir(Sist sistema) {
-		this.sistemas.consumir(sistema, 1);
+	public void consumir(Sist sistema, int cantidad) {
+		this.sistemas.consumir(sistema, cantidad);
 	}
 	
 	public void reponer(Sist sistema) {
