@@ -112,8 +112,9 @@ public class VentanaRegistro extends JFrame {
 	}
 	
 	public void doAccion(AccionBoton accion) {
-		IntegraSistema.setAccion(accion);
-		new IntegraSistema().run();
+		IntegraSistema accioner = IntegraSistema.getInstance();
+		accioner.setAccion(accion);
+		accioner.run();
 	}
 	
 	public void setAccion(AccionBoton accion) {

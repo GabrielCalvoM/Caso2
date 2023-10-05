@@ -12,25 +12,34 @@ import sistemas.enums.Alerta;
 
 public class IntegraSistema extends Thread {
 	
-	private static VentanaControl control;
-	private static VentanaRegistro registro;
-	private static CultivoInfo cultivo = null;
-	private static AccionBoton accion = AccionBoton.nada;
+	private static IntegraSistema instancia;
+	private VentanaControl control;
+	private VentanaRegistro registro;
+	private CultivoInfo cultivo = null;
+	private AccionBoton accion = AccionBoton.nada;
 	
-	public IntegraSistema() {
+	private IntegraSistema() {
 		
 	}
 	
-	public static void setVentanas(VentanaControl pcontrol, VentanaRegistro pregistro) {
+	public static IntegraSistema getInstance() {
+		if (instancia == null) {
+			instancia = new IntegraSistema();
+		}
+		
+		return instancia;
+	}
+	
+	public void setVentanas(VentanaControl pcontrol, VentanaRegistro pregistro) {
 		control = pcontrol;
 		registro = pregistro;
 	}
 	
-	public static void setAccion(AccionBoton paccion) {
+	public void setAccion(AccionBoton paccion) {
 		accion = paccion;
 	}
 
-	public static void setCultivo(CultivoInfo pcultivo) {
+	public void setCultivo(CultivoInfo pcultivo) {
 		cultivo = pcultivo;
 	}
 	

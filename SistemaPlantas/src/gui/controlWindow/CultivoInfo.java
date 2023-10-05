@@ -61,9 +61,10 @@ public class CultivoInfo extends JLabel {
 	}
 	
 	public void doAccion(AccionBoton accion) {
-		IntegraSistema.setCultivo(this);
-		IntegraSistema.setAccion(accion);
-		new IntegraSistema().run();
+		IntegraSistema accioner = IntegraSistema.getInstance();
+		accioner.setCultivo(this);
+		accioner.setAccion(accion);
+		accioner.run();
 	}
 	
 	public void showEstado() {

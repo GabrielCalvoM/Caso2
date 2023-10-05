@@ -1,11 +1,13 @@
 package cultivos.manejo;
 
+import java.io.Serializable;
+
 import cultivos.Campo;
 import cultivos.Crecimiento;
 import sistemas.enums.*;
 import sistemas.manejo.*;
 
-public class CultivoControl implements ICultivo {
+public class CultivoControl implements ICultivo, Serializable {
 	
 	private CultivoManager cultivo;
 	private SistemaExec sistemas;

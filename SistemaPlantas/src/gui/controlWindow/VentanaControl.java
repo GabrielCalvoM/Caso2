@@ -7,11 +7,13 @@ import javax.swing.*;
 import cultivos.manejo.CultivoControl;
 import gui.AccionBoton;
 import gui.BotonControl;
+import runner.Fecha;
 import runner.IntegraSistema;
 
 public class VentanaControl extends JFrame {
 
 	private ListaCultivo cultivos = new ListaCultivo(this);
+	private Reloj reloj = new Reloj();
 	
 	public VentanaControl() {
 		setTitle("Sistema de Plantas");
@@ -30,6 +32,9 @@ public class VentanaControl extends JFrame {
 		titulo.setBounds(340, 20, 600, 30);
 
         panel.add(titulo);
+        
+        reloj.setBounds(20, 30, 200, 40);
+        panel.add(reloj);
         
         Font fuenteInfo = new Font("Arial", Font.BOLD, 20);
         
@@ -54,8 +59,9 @@ public class VentanaControl extends JFrame {
 	}
 	
 	public void doAccion(AccionBoton accion) {
-		IntegraSistema.setAccion(accion);
-		new IntegraSistema().run();
+		IntegraSistema accioner = IntegraSistema.getInstance();
+		accioner.setAccion(accion);
+		accioner.run();
 	}
 	
 	public void ingresarCultivo(CultivoControl cultivo) {
@@ -69,6 +75,12 @@ public class VentanaControl extends JFrame {
 		cultivos.eliminarCultivo(cultivo);
 		panel.revalidate();
 		panel.repaint();
+	}
+	
+	public void actualizarHora(Fecha fecha) {
+		Container panel = getContentPane();
+		reloj.actualizar(fecha);
+		panel.revalidate();
 	}
 	
 	public void actualizarInfo(int i) {

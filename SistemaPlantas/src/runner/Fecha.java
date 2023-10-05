@@ -1,32 +1,34 @@
 package runner;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Fecha {
+public class Fecha implements Serializable {
 	
-	private int hora;
-	private int dia;
-	private int mes;
 	private int año;
+	private int mes;
+	private int dia;
+	private int hora;
 	
 	public Fecha() {
-		hora = Calendar.HOUR_OF_DAY;
-		dia = Calendar.DAY_OF_MONTH;
-		mes = Calendar.MONTH;
 		año = Calendar.YEAR;
+		mes = Calendar.MONTH;
+		dia = Calendar.DAY_OF_MONTH;
+		hora = Calendar.HOUR_OF_DAY;
 	}
 	
 	public Fecha(int hh, int dd, int mm, int yyyy) {
-		hora = hh;
-		dia = dd;
-		mes = mm;
 		año = yyyy;
+		mes = mm;
+		dia = dd;
+		hora = hh;
 	}
 	
 	public void avanzarTiempo() {
 		hora++;
 		
 		if (hora >= 24) {
+			hora = 0;
 			dia++;
 		}
 		
@@ -59,15 +61,11 @@ public class Fecha {
 			año++;
 		}
 	}
-	
-	public int getHour() {
-		return hora;
+
+	public int getYear() {
+		return año;
 	}
-	
-	public int getDia() {
-		return dia;
-	}
-	
+
 	public Mes getMonth() {
 		Mes mm;
 		
@@ -100,4 +98,12 @@ public class Fecha {
 		return mm;
 	}
 
+	public int getDia() {
+		return dia;
+	}
+	
+	public int getHour() {
+		return hora;
+	}
+	
 }

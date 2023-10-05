@@ -1,5 +1,6 @@
 package runner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
@@ -11,6 +12,7 @@ import cultivos.manejo.CultivoControl;
 import gui.AccionBoton;
 import gui.controlWindow.VentanaControl;
 import gui.registroWindow.*;
+import saver.GuardaPantalla;
 import sistemas.enums.Sist;
 import sistemas.enums.SysAccion;
 
@@ -18,12 +20,16 @@ public class SistemaFuncion extends Thread {
 	
 	private VentanaControl control;
 	private VentanaRegistro registro;
-	private IntegraSistema UI;
-	private long tiempo;
+	private Fecha tiempo;
 	
 	public SistemaFuncion(VentanaControl pcontrol, VentanaRegistro pregistro) {
 		control = pcontrol;
 		registro = pregistro;
+		tiempo = new Fecha();
+	}
+	
+	public void setFecha(Fecha fecha) {
+		this.tiempo = fecha;
 	}
 	
 	public void registrar(CultivoControl cultivo) {
@@ -38,21 +44,22 @@ public class SistemaFuncion extends Thread {
 		ArrayList<CultivoControl> cultivos;
 		
 		while(true) {
+			control.actualizarHora(tiempo);
 			cultivos = control.getCultivos();
 			
 			for (CultivoControl cultivo : cultivos) {
 				cultivo.executeCult(CultAccion.crecer);
 				cultivo.executeCult(CultAccion.alteracion);
 				
-				if (tiempo%12 == 2) {
+				if (tiempo.getHour()%12 == 2) {
 					cultivo.executeSys(SysAccion.encender, Sist.all);
 				}
 				
-				if (tiempo%12 == 4) {
+				if (tiempo.getHour()%12 == 4) {
 					cultivo.executeSys(SysAccion.apagar, Sist.abono);
 				}
 
-				if (tiempo%12 == 8) {
+				if (tiempo.getHour()%12 == 8) {
 					cultivo.executeSys(SysAccion.apagar, Sist.riego);
 				}
 			}
@@ -74,9 +81,12 @@ public class SistemaFuncion extends Thread {
 			}
 			
 			try {
+				GuardaPantalla.getInstance().save();
 				Thread.sleep(3000);
-				tiempo++;
+				tiempo.avanzarTiempo();
 			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 		}
