@@ -1,8 +1,10 @@
 package sistemas;
 
+import java.io.Serializable;
+
 import sistemas.enums.*;
 
-public abstract class Sistema {
+public abstract class Sistema implements Serializable {
 	
 	protected Estado estado;
 	protected Alteracion alteracion;

@@ -25,11 +25,14 @@ public class SistemaFuncion extends Thread {
 	public SistemaFuncion(VentanaControl pcontrol, VentanaRegistro pregistro) {
 		control = pcontrol;
 		registro = pregistro;
-		tiempo = new Fecha();
 	}
 	
 	public void setFecha(Fecha fecha) {
 		this.tiempo = fecha;
+	}
+	
+	public Fecha getFecha() {
+		return tiempo;
 	}
 	
 	public void registrar(CultivoControl cultivo) {
@@ -42,6 +45,10 @@ public class SistemaFuncion extends Thread {
 	
 	public void run() {
 		ArrayList<CultivoControl> cultivos;
+		
+		if (tiempo == null) {
+			tiempo = new Fecha();
+		}
 		
 		while(true) {
 			control.actualizarHora(tiempo);
@@ -80,13 +87,22 @@ public class SistemaFuncion extends Thread {
 				control.actualizarInfo(i);
 			}
 			
+			if (tiempo.getHour() == 0) {
+				GuardaPantalla datos = GuardaPantalla.getInstance();
+				datos.setCultivos(control.getCultivos());
+				datos.setFecha(tiempo);
+				
+				try {
+					datos.save();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+				
 			try {
-				GuardaPantalla.getInstance().save();
-				Thread.sleep(3000);
 				tiempo.avanzarTiempo();
+				Thread.sleep(3000);
 			} catch (InterruptedException ex) {
-				ex.printStackTrace();
-			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 		}

@@ -1,5 +1,7 @@
 package sistemas.enums;
 
-public enum Sist {
+import java.io.Serializable;
+
+public enum Sist implements Serializable {
 	all, riego, abono
 }

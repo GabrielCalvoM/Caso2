@@ -1,11 +1,12 @@
 package sistemas.manejo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import sistemas.*;
 import sistemas.enums.*;
 
-public class SistemaCultivo {
+public class SistemaCultivo implements Serializable {
 	
 	private ArrayList<Sistema> sistemas = new ArrayList<Sistema>();
 	

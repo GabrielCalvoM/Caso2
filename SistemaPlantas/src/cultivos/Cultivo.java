@@ -1,6 +1,8 @@
 package cultivos;
 
-public class Cultivo {
+import java.io.Serializable;
+
+public class Cultivo implements Serializable {
 	
 	private String tipo;
 	private Crecimiento estado;

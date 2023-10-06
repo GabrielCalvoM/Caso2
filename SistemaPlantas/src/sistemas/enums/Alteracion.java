@@ -1,5 +1,7 @@
 package sistemas.enums;
 
-public enum Alteracion {
+import java.io.Serializable;
+
+public enum Alteracion implements Serializable {
 	funcionando, fallando, agotado
 }

@@ -1,8 +1,10 @@
 package sistemas.manejo;
 
+import java.io.Serializable;
+
 import sistemas.enums.*;
 
-public class SistemaExec implements ISystem {
+public class SistemaExec implements ISystem, Serializable {
 	
 	private SistemaManager sistemas;
 	

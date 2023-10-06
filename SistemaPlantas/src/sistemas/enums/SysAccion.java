@@ -1,5 +1,7 @@
 package sistemas.enums;
 
-public enum SysAccion {
+import java.io.Serializable;
+
+public enum SysAccion implements Serializable {
 	encender, apagar, alterar, arreglar, consumir, reponer
 }

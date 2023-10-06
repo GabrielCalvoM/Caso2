@@ -10,26 +10,23 @@ import runner.Mes;
 
 public class Reloj extends JLabel {
 	
-	private JTextPane año = initTexto();
-	private JTextPane mes = initTexto();
-	private JTextPane dia = initTexto();
-	private JTextPane hora = initTexto();
+	private JTextField año = initTexto();
+	private JTextField mes = initTexto();
+	private JTextField dia = initTexto();
+	private JTextField hora = initTexto();
 	
 	public Reloj() {
 		super();
 		
 		this.setOpaque(false);
-		this.setLayout(new GridLayout(2, 5));
+		this.setLayout(new GridLayout(2, 3));
 		this.add(dia);
-		this.add(new JLabel("/"));
+		dia.setHorizontalAlignment(JTextField.RIGHT);
 		this.add(mes);
-		this.add(new JLabel("/"));
 		this.add(año);
 		this.add(hora);
-		this.add(new JLabel(":"));
-		this.add(new JLabel("00"));
-		this.add(new JLabel(":"));
-		this.add(new JLabel("00"));
+		hora.setHorizontalAlignment(JTextField.RIGHT);
+		this.add(new JLabel(": 00 : 00"));
 	}
 	
 	public void actualizar(Fecha fecha) {
@@ -40,11 +37,11 @@ public class Reloj extends JLabel {
 	}
 	
 	public void setYear(int year) {
-		año.setText(String.valueOf(year));
+		año.setText(" / " + String.valueOf(year));
 	}
 
 	public void setMonth(Mes month) {
-		mes.setText(String.valueOf(month));
+		mes.setText(" / " + String.valueOf(month));
 	}
 
 	public void setDay(int day) {
@@ -55,10 +52,11 @@ public class Reloj extends JLabel {
 		hora.setText(String.valueOf(hour));
 	}
 	
-	public JTextPane initTexto() {
-		JTextPane texto = new JTextPane();
+	public JTextField initTexto() {
+		JTextField texto = new JTextField();
 		texto.setForeground(Color.BLACK);
 		texto.setOpaque(false);
+		texto.setBorder(null);
 		return texto;
 	}
 

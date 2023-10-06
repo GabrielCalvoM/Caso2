@@ -33,7 +33,7 @@ public class VentanaControl extends JFrame {
 
         panel.add(titulo);
         
-        reloj.setBounds(20, 30, 200, 40);
+        reloj.setBounds(0, 20, 200, 40);
         panel.add(reloj);
         
         Font fuenteInfo = new Font("Arial", Font.BOLD, 20);
@@ -47,10 +47,16 @@ public class VentanaControl extends JFrame {
         panel.add(info);
         
         BotonControl bregistro = new BotonControl(AccionBoton.registrar, Color.GRAY, "Abrir Registro");
-        bregistro.setBounds(800, 600, 120, 30);
+        bregistro.setBounds(30, 610, 120, 30);
         bregistro.addActionListener(e -> doAccion(bregistro.getAccion()));
         
         panel.add(bregistro);
+        
+        BotonControl bguardado = new BotonControl(AccionBoton.guardar, Color.GRAY, "Guardar Info");
+        bguardado.setBounds(820, 610, 120, 30);
+        bguardado.addActionListener(e -> doAccion(bguardado.getAccion()));
+        
+        panel.add(bguardado);
         
         cultivos.setBackground(Color.DARK_GRAY);
         cultivos.setBounds(20, 120, 940, 460);

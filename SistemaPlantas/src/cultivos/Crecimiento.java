@@ -1,5 +1,7 @@
 package cultivos;
 
-public enum Crecimiento {
+import java.io.Serializable;
+
+public enum Crecimiento implements Serializable {
 	brotando, creciendo, floreciendo, lista
 }

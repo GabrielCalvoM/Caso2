@@ -1,6 +1,8 @@
 package cultivos;
 
-public class Campo {
+import java.io.Serializable;
+
+public class Campo implements Serializable {
 	
 	private Cultivo cultivo;
 	private int cantidad;

@@ -16,7 +16,7 @@ public class GuardaPantalla {
 	
 	
 	private GuardaPantalla() {
-		
+		datos = new SistemaData();
 	}
 	
 	public static GuardaPantalla getInstance() {
@@ -48,89 +48,42 @@ public class GuardaPantalla {
 		return datos.getCultivos();
 	}
 	
-	public File existeArchivo(String nameCarpeta, String arch) {
-		File carpeta = existeCarpeta(nameCarpeta);
-		File existe = null;
-		
-		if (carpeta != null) {
-			String dir = System.getProperty("use.dir");
-			File[] archivos = new File(dir).listFiles();
-			
-			for(File archivo : archivos) {
-				if (existe == null) {
-					if (archivo.isDirectory()) {
-						existe = existeArchivo(nameCarpeta, arch);
-					} else {
-						if (archivo.getName() == arch) {
-							existe = archivo;
-						}
-					}
-				}
-			}
-		}
-		
-		return existe;
-	}
-	
-	public File existeCarpeta(String arch) {
-		File[] carpeta = new File("user.dir").listFiles();
-		File existe = null;
-		
-		for(File archivo : carpeta) {
-			if (existe == null) {
-				if (archivo.isDirectory()) {
-					if (archivo.getName() == arch) {
-						existe = archivo;
-					} else {
-						existe = existeCarpeta(arch);
-					}
-				}
-			}
-		}
-		
-		return existe;
-	}
-	
 	public void save() throws IOException {
-		File carpeta = existeCarpeta("DatosDeGuardado");
+		setFecha(sistema.getFecha());
+		setCultivos(ventana.getCultivos());
 		
-		if (carpeta == null) {
-			carpeta = new File(System.getProperty("use.dir") + "/DatosDeGuardado");
-			carpeta.mkdir();
-		}
-		
-		File archivo = existeArchivo("DatosDeGuardado", "/Cultivos.txt");
-		
-		if (archivo == null) {
-			archivo = new File(carpeta.getPath() + "/Cultivos.txt");
-			archivo.createNewFile();
-		}
-		
-		FileOutputStream destino = new FileOutputStream(archivo);
+		char separador = File.separatorChar;
+		String dir = System.getProperty("user.dir") + separador + "src" + separador + "saver" + separador + "DatosDeGuardado";
+		FileOutputStream destino = new FileOutputStream(dir + separador + "Cultivos.txt");
 		ObjectOutputStream guardado = new ObjectOutputStream(destino);
 		guardado.writeObject(this.datos);
 		guardado.close();
 	}
 
 	public void load() throws IOException, ClassNotFoundException {
-		File archivo = existeArchivo("DatosDeGuardado", "Cultivos.txt");
+		char separador = File.separatorChar;
+		String dir = System.getProperty("user.dir") + separador + "src" + separador + "saver";
+		File carpeta = new File(dir + separador + "DatosDeGuardado");
+		carpeta.mkdir();
 		
-		if (archivo != null) {
-			FileInputStream destino = new FileInputStream(archivo);
-			ObjectInputStream guardado = new ObjectInputStream(destino);
-			this.datos = (SistemaData) guardado.readObject();
-			guardado.close();
-			
+		FileInputStream fuente = new FileInputStream(carpeta.getAbsolutePath() + separador + "Cultivos.txt");
+		ObjectInputStream guardado = new ObjectInputStream(fuente);
+		this.datos = (SistemaData) guardado.readObject();
+		guardado.close();
+		
+		if (datos != null) {
 			ArrayList<CultivoControl> cultivos = datos.getCultivos();
 			
-			for (CultivoControl cultivo : cultivos) {
-				this.ventana.ingresarCultivo(cultivo);
+			if (cultivos != null) {
+				for (CultivoControl cultivo : cultivos) {
+					this.ventana.ingresarCultivo(cultivo);
+				}
 			}
-			
+	
+			System.out.println(22222222);
 			Fecha fecha = datos.getFecha();
 			this.sistema.setFecha(fecha);
 		}
-		
 	}
 	
 }

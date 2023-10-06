@@ -1,5 +1,7 @@
 package sistemas.enums;
 
-public enum Alerta {
+import java.io.Serializable;
+
+public enum Alerta implements Serializable {
 	nada, pendiente, riego, abono
 }

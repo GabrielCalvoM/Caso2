@@ -1,5 +1,6 @@
 package runner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import cultivos.Crecimiento;
@@ -8,6 +9,7 @@ import cultivos.manejo.CultivoControl;
 import gui.AccionBoton;
 import gui.controlWindow.*;
 import gui.registroWindow.VentanaRegistro;
+import saver.GuardaPantalla;
 import sistemas.enums.Alerta;
 
 public class IntegraSistema extends Thread {
@@ -61,6 +63,12 @@ public class IntegraSistema extends Thread {
 			}
 		} else if (accion == AccionBoton.registrar) {
 			registro.setVisible(true);
+		} else if (accion == AccionBoton.guardar) {
+			try {
+				GuardaPantalla.getInstance().save();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		cultivo = null;

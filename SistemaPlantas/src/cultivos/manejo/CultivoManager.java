@@ -1,5 +1,7 @@
 package cultivos.manejo;
 
+import java.io.Serializable;
+
 import cultivos.Campo;
 import cultivos.Crecimiento;
 import sistemas.enums.Alerta;
@@ -7,7 +9,7 @@ import sistemas.enums.Alteracion;
 import sistemas.enums.Sist;
 import sistemas.manejo.AlertaController;
 
-public class CultivoManager {
+public class CultivoManager implements Serializable {
 	
 	private AlertaController alerta;
 	private Campo cultivo;

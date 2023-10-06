@@ -1,8 +1,10 @@
 package sistemas.manejo;
 
+import java.io.Serializable;
+
 import sistemas.enums.*;
 
-public class AlertaController {
+public class AlertaController implements Serializable {
 	
 	private SistemaCultivo sistemas;
 	private Alerta alerta = Alerta.nada;

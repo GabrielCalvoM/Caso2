@@ -11,10 +11,11 @@ public class Fecha implements Serializable {
 	private int hora;
 	
 	public Fecha() {
-		año = Calendar.YEAR;
-		mes = Calendar.MONTH;
-		dia = Calendar.DAY_OF_MONTH;
-		hora = Calendar.HOUR_OF_DAY;
+		Calendar calendario = Calendar.getInstance();
+		año = calendario.get(Calendar.YEAR);
+		mes = calendario.get(Calendar.MONTH) + 1;
+		dia = calendario.get(Calendar.DAY_OF_MONTH);
+		hora = calendario.get(Calendar.HOUR_OF_DAY);
 	}
 	
 	public Fecha(int hh, int dd, int mm, int yyyy) {
