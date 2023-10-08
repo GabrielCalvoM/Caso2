@@ -1,9 +1,9 @@
 package runner;
 
 import java.io.IOException;
-
 import javax.swing.SwingUtilities;
 
+import cultivos.manejo.IntegraCultivo;
 import gui.controlWindow.VentanaControl;
 import gui.registroWindow.VentanaRegistro;
 import saver.GuardaPantalla;
@@ -18,7 +18,9 @@ public class Principal {
 			control.setVisible(true);
 			registro.setVisible(true);
 		});
-		SistemaFuncion sistema = new SistemaFuncion(control, registro);
+		IntegraCultivo cultivos = new IntegraCultivo();
+		SistemaFuncion sistema = new SistemaFuncion(control, registro, cultivos);
+		IntegraSistema.getInstance().setSistema(sistema);
 		GuardaPantalla saver = GuardaPantalla.getInstance();
 		saver.setSistema(sistema, control);
 		

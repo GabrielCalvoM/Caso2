@@ -2,14 +2,10 @@ package runner;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 
-import javax.swing.SwingUtilities;
-
-import cultivos.manejo.CultAccion;
-import cultivos.manejo.CultivoControl;
-import gui.AccionBoton;
+import cultivos.manejo.*;
+import gui.controlWindow.CultivoInfo;
 import gui.controlWindow.VentanaControl;
 import gui.registroWindow.*;
 import saver.GuardaPantalla;
@@ -20,11 +16,13 @@ public class SistemaFuncion extends Thread {
 	
 	private VentanaControl control;
 	private VentanaRegistro registro;
+	private IntegraCultivo listaCultivos;
 	private Fecha tiempo;
 	
-	public SistemaFuncion(VentanaControl pcontrol, VentanaRegistro pregistro) {
-		control = pcontrol;
-		registro = pregistro;
+	public SistemaFuncion(VentanaControl pcontrol, VentanaRegistro pregistro, IntegraCultivo pcultivo) {
+		this.control = pcontrol;
+		this.registro = pregistro;
+		this.listaCultivos = pcultivo;
 	}
 	
 	public void setFecha(Fecha fecha) {
@@ -35,12 +33,26 @@ public class SistemaFuncion extends Thread {
 		return tiempo;
 	}
 	
+	public VentanaControl getControl() {
+		return control;
+	}
+	
+	public VentanaRegistro getRegistro() {
+		return registro;
+	}
+	
 	public void registrar(CultivoControl cultivo) {
 		control.ingresarCultivo(cultivo);
+		listaCultivos.addCultivo(cultivo);
+	}
+	
+	public void cosechar(CultivoInfo cultivo) {
+		control.cosechar(cultivo);
+		listaCultivos.addCultivo(cultivo.getCultivo());
 	}
 	
 	public ArrayList<CultivoControl> getCultivos(){
-		return control.getCultivos();
+		return listaCultivos.getLista();
 	}
 	
 	public void run() {
@@ -52,7 +64,7 @@ public class SistemaFuncion extends Thread {
 		
 		while(true) {
 			control.actualizarHora(tiempo);
-			cultivos = control.getCultivos();
+			cultivos = listaCultivos.getLista();
 			
 			for (CultivoControl cultivo : cultivos) {
 				cultivo.executeCult(CultAccion.crecer);
@@ -89,7 +101,7 @@ public class SistemaFuncion extends Thread {
 			
 			if (tiempo.getHour() == 0) {
 				GuardaPantalla datos = GuardaPantalla.getInstance();
-				datos.setCultivos(control.getCultivos());
+				datos.setCultivos(cultivos);
 				datos.setFecha(tiempo);
 				
 				try {

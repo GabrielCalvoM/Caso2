@@ -50,7 +50,7 @@ public class GuardaPantalla {
 	
 	public void save() throws IOException {
 		setFecha(sistema.getFecha());
-		setCultivos(ventana.getCultivos());
+		setCultivos(sistema.getCultivos());
 		
 		char separador = File.separatorChar;
 		String dir = System.getProperty("user.dir") + separador + "src" + separador + "saver" + separador + "DatosDeGuardado";

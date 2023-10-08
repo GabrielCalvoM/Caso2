@@ -15,6 +15,7 @@ import sistemas.enums.Alerta;
 public class IntegraSistema extends Thread {
 	
 	private static IntegraSistema instancia;
+	private SistemaFuncion sistema;
 	private VentanaControl control;
 	private VentanaRegistro registro;
 	private CultivoInfo cultivo = null;
@@ -30,6 +31,10 @@ public class IntegraSistema extends Thread {
 		}
 		
 		return instancia;
+	}
+	
+	public void setSistema(SistemaFuncion sist) {
+		this.sistema = sist;
 	}
 	
 	public void setVentanas(VentanaControl pcontrol, VentanaRegistro pregistro) {
@@ -50,7 +55,7 @@ public class IntegraSistema extends Thread {
 			CultivoControl cultivo = registro.registrar();
 			
 			if (cultivo != null) {
-				control.ingresarCultivo(cultivo);
+				sistema.registrar(cultivo);
 			}
 		} else if (accion == AccionBoton.alerta) {
 			if (cultivo.getCultivo().getAlerta() == Alerta.pendiente) {

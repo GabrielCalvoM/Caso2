@@ -96,9 +96,5 @@ public class VentanaControl extends JFrame {
 	public int cantCultivos() {
 		return cultivos.cantCultivo();
 	}
-	
-	public ArrayList<CultivoControl> getCultivos() {
-		return this.cultivos.getCultivos();
-	}
 
 }
