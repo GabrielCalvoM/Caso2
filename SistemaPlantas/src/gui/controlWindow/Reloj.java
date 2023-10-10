@@ -32,7 +32,7 @@ public class Reloj extends JLabel {
 	public void actualizar(Fecha fecha) {
 		this.setYear(fecha.getYear());
 		this.setMonth(fecha.getMonth());
-		this.setDay(fecha.getDia());
+		this.setDay(fecha.getDay());
 		this.setHour(fecha.getHour());
 	}
 	

@@ -1,0 +1,49 @@
+{
+	"6:00" : {
+		"encender" : "all",
+		"apagar"   : "none",
+		"alterar"  : "none"
+	},
+	
+	"8:00" : {
+		"encender" : "none",
+		"apagar"   : "abono",
+		"alterar"  : "riego"
+	},
+	
+	"12:00" : {
+		"encender" : "none",
+		"apagar"   : "riego",
+		"alterar"  : "none"
+	},
+	
+	"14:00" : {
+		"encender" : "abono",
+		"apagar"   : "none",
+		"alterar"  : "abono"
+	},
+	
+	"16:00" : {
+		"encender" : "none",
+		"apagar"   : "abono",
+		"alterar"  : "none"
+	},
+	
+	"18:00" : {
+		"encender" : "riego",
+		"apagar"   : "none",
+		"alterar"  : "none"
+	},
+	
+	"22:00" : {
+		"encender" : "abono",
+		"apagar"   : "none",
+		"alterar"  : "all"
+	},
+	
+	"00:00" : {
+		"encender" : "none",
+		"apagar"   : "all",
+		"alterar"  : "none"
+	}
+}

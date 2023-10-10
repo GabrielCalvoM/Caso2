@@ -99,12 +99,21 @@ public class Fecha implements Serializable {
 		return mm;
 	}
 
-	public int getDia() {
+	public int getDay() {
 		return dia;
 	}
 	
 	public int getHour() {
 		return hora;
+	}
+	
+	public String writeFecha() {
+		String fecha = "";
+		fecha = String.valueOf(getDay())
+			+ " / " + String.valueOf(getMonth())
+			+ " / " + String.valueOf(getYear())
+			+ "   " + String.valueOf(getHour()) + ":00:00";
+		return fecha;
 	}
 	
 }

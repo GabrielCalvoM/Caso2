@@ -13,7 +13,7 @@ public class Principal {
 	public static void main(String args[]) {
 		VentanaControl control = new VentanaControl();
 		VentanaRegistro registro = new VentanaRegistro();
-		IntegraSistema.getInstance().setVentanas(control, registro);
+		IntegraSistema.getInstance().setVentanas(registro);
 		SwingUtilities.invokeLater(() ->{
 			control.setVisible(true);
 			registro.setVisible(true);
@@ -22,7 +22,7 @@ public class Principal {
 		SistemaFuncion sistema = new SistemaFuncion(control, registro, cultivos);
 		IntegraSistema.getInstance().setSistema(sistema);
 		GuardaPantalla saver = GuardaPantalla.getInstance();
-		saver.setSistema(sistema, control);
+		saver.setSistema(sistema);
 		
 		try {
 			saver.load();

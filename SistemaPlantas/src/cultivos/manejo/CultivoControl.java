@@ -1,6 +1,7 @@
 package cultivos.manejo;
 
 import java.io.Serializable;
+import java.util.Random;
 
 import cultivos.Campo;
 import cultivos.Crecimiento;
@@ -82,7 +83,20 @@ public class CultivoControl implements ICultivo, Serializable {
 	}
 
 	public void executeSys(SysAccion accion, Sist sistema) {
-		if (accion != SysAccion.consumir) {
+		if (accion == SysAccion.alterar) {
+			Random randomizer = new Random();
+			int alt = randomizer.nextInt(4);
+			
+			if (cultivo.getAlerta() == Alerta.nada && alt == 2) {
+				if (sistema != Sist.all) {
+					sistemas.executeSys(accion, sistema);
+				} else {
+					sistemas.executeSys(accion, Sist.abono);
+					sistemas.executeSys(accion, Sist.riego);
+				}
+			}
+		}
+		else if (accion != SysAccion.consumir) {
 			if (accion != SysAccion.alterar || cultivo.getAlerta() == Alerta.nada) {
 				if (sistema != Sist.all) {
 					sistemas.executeSys(accion, sistema);

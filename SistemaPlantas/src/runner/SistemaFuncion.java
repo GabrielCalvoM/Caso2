@@ -1,5 +1,6 @@
 package runner;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -8,7 +9,9 @@ import cultivos.manejo.*;
 import gui.controlWindow.CultivoInfo;
 import gui.controlWindow.VentanaControl;
 import gui.registroWindow.*;
+import runner.tasks.LectorJson;
 import saver.GuardaPantalla;
+import saver.Historiador;
 import sistemas.enums.Sist;
 import sistemas.enums.SysAccion;
 
@@ -48,7 +51,7 @@ public class SistemaFuncion extends Thread {
 	
 	public void cosechar(CultivoInfo cultivo) {
 		control.cosechar(cultivo);
-		listaCultivos.addCultivo(cultivo.getCultivo());
+		listaCultivos.rmvCultivo(cultivo.getCultivo());
 	}
 	
 	public ArrayList<CultivoControl> getCultivos(){
@@ -65,34 +68,21 @@ public class SistemaFuncion extends Thread {
 		while(true) {
 			control.actualizarHora(tiempo);
 			cultivos = listaCultivos.getLista();
+			ArrayList<Enum[]> tareas = new ArrayList<Enum[]>();
+			
+			try {
+				tareas = LectorJson.getInstance().getTareas(tiempo.getHour());
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 			
 			for (CultivoControl cultivo : cultivos) {
 				cultivo.executeCult(CultAccion.crecer);
 				cultivo.executeCult(CultAccion.alteracion);
 				
-				if (tiempo.getHour()%12 == 2) {
-					cultivo.executeSys(SysAccion.encender, Sist.all);
+				for (Enum[] tarea : tareas) {
+					cultivo.executeSys((SysAccion) tarea[0], (Sist) tarea[1]);
 				}
-				
-				if (tiempo.getHour()%12 == 4) {
-					cultivo.executeSys(SysAccion.apagar, Sist.abono);
-				}
-
-				if (tiempo.getHour()%12 == 8) {
-					cultivo.executeSys(SysAccion.apagar, Sist.riego);
-				}
-			}
-			
-			Random randomizer = new Random();
-			int alt;
-			
-			for(CultivoControl cultivo : cultivos) {
-				alt = randomizer.nextInt(9);
-				if (alt%9 == 1) {
-					cultivo.executeSys(SysAccion.alterar, Sist.abono);
-				} else if (alt%9== 4) {
-					cultivo.executeSys(SysAccion.alterar, Sist.riego);
-				} 
 			}
 			
 			for (int i = 0; i < control.cantCultivos(); i++) {

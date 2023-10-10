@@ -10,13 +10,13 @@ import gui.AccionBoton;
 import gui.controlWindow.*;
 import gui.registroWindow.VentanaRegistro;
 import saver.GuardaPantalla;
+import saver.Historiador;
 import sistemas.enums.Alerta;
 
 public class IntegraSistema extends Thread {
 	
 	private static IntegraSistema instancia;
 	private SistemaFuncion sistema;
-	private VentanaControl control;
 	private VentanaRegistro registro;
 	private CultivoInfo cultivo = null;
 	private AccionBoton accion = AccionBoton.nada;
@@ -37,8 +37,7 @@ public class IntegraSistema extends Thread {
 		this.sistema = sist;
 	}
 	
-	public void setVentanas(VentanaControl pcontrol, VentanaRegistro pregistro) {
-		control = pcontrol;
+	public void setVentanas(VentanaRegistro pregistro) {
 		registro = pregistro;
 	}
 	
@@ -53,6 +52,7 @@ public class IntegraSistema extends Thread {
 	public void run() {
 		if (accion == AccionBoton.ingresar) {
 			CultivoControl cultivo = registro.registrar();
+			Historiador.getInstance().guardar(cultivo, sistema.getFecha(), true);
 			
 			if (cultivo != null) {
 				sistema.registrar(cultivo);
@@ -64,7 +64,8 @@ public class IntegraSistema extends Thread {
 			}
 		} else if (accion == AccionBoton.cosecha) {
 			if (cultivo.getCultivo().getCrecimiento() == Crecimiento.lista) {
-				control.cosechar(cultivo);
+				sistema.cosechar(cultivo);
+				Historiador.getInstance().guardar(cultivo.getCultivo(), sistema.getFecha(), false);
 			}
 		} else if (accion == AccionBoton.registrar) {
 			registro.setVisible(true);

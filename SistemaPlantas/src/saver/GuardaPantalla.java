@@ -11,9 +11,7 @@ public class GuardaPantalla {
 	
 	private static GuardaPantalla instancia;
 	private SistemaFuncion sistema;
-	private VentanaControl ventana;
 	private SistemaData datos;
-	
 	
 	private GuardaPantalla() {
 		datos = new SistemaData();
@@ -27,9 +25,8 @@ public class GuardaPantalla {
 		return instancia;
 	}
 	
-	public void setSistema(SistemaFuncion psistema, VentanaControl pventana) {
+	public void setSistema(SistemaFuncion psistema) {
 		this.sistema = psistema;
-		this.ventana = pventana;
 	}
 	
 	public void setFecha(Fecha date) {
@@ -76,7 +73,7 @@ public class GuardaPantalla {
 			
 			if (cultivos != null) {
 				for (CultivoControl cultivo : cultivos) {
-					this.ventana.ingresarCultivo(cultivo);
+					this.sistema.registrar(cultivo);
 				}
 			}
 	
